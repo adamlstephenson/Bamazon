@@ -99,7 +99,7 @@ function checkStock() {
                         if (err) throw err;
 
                         console.log("Thank you for placing your order. Your total is: ");
-                        console.log("$ " + itemPrice * numOfUnits);
+                        console.log("$" + itemPrice * numOfUnits);
                         console.log("....................................................")
                     });
                 }
