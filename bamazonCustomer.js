@@ -1,5 +1,8 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var itemId;
+var itemObject;
+var itemPrice;
 
 // Database Connection
 //============================================================================================
@@ -23,6 +26,7 @@ connection.connect(function (err) {
 // ===========================================================================================
 
 function displayItems() {
+
     var itemQuery = "SELECT item_id, product_name, price FROM products";
 
     connection.query(itemQuery, function (err, res) {
@@ -43,18 +47,24 @@ function selectItem() {
         },
     ]).
         then(function (inquirerResponse) {
-            var itemId = inquirerResponse.idnumber;
+
+            itemId = inquirerResponse.idnumber;
 
             var query = "SELECT * FROM products WHERE ?";
             connection.query(query, { item_id: itemId }, function (err, res) {
                 if (err) throw err;
 
-                console.log("Product Name: " + res[0].product_name)
-                console.log("Price: " + res[0].price)
+                itemObject = res[0];
+                var itemName = res[0].product_name;
+                itemPrice = res[0].price.toFixed(2);
+
+                console.log("Product Name: " + itemName)
+                console.log("Price: $" + itemPrice)
                 console.log("....................................................")
 
                 if (res.length === 0) {
                     console.log("Please select a valid Item ID")
+
                 }
                 checkStock();
             })
@@ -71,13 +81,33 @@ function checkStock() {
         }
     ]).
         then(function (inquirerResponse) {
+
             var numOfUnits = inquirerResponse.quantity;
 
-            var query = "SELECT * FROM products WHERE ?";
+            var query = "SELECT stock_quantity FROM products WHERE ?";
             connection.query(query, { item_id: itemId }, function (err, res) {
                 if (err) throw err;
 
-                
+                var databaseQuantity = res[0].stock_quantity;
+
+                if (numOfUnits <= databaseQuantity) {
+                    console.log("Product in Stock!")
+
+                    var updateSQL = "UPDATE products SET stock_quantity = " + (databaseQuantity - numOfUnits) + " WHERE item_id = " + itemId;
+                    //console.log(updateSQL)
+                    connection.query(updateSQL, function (err, res) {
+                        if (err) throw err;
+
+                        console.log("Thank you for placing your order. Your total is: ");
+                        console.log("$ " + itemPrice * numOfUnits);
+                        console.log("....................................................")
+                    });
+                }
+                else {
+                    console.log("Out of Stock!")
+                    console.log("Please select a lesser quantity")
+                    checkStock();
+                }
             })
         })
 }
