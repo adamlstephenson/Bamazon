@@ -13,8 +13,8 @@ Bamazon posseses the following features:
 
 The features outlined above are captured in the following screenshots, displayed sequentially.
 
-(images/bamazon1.png)
-(images/bamazon2.png)
-(images/bamazon3.png)
-(images/bamazon4.png)
-(images/bamazon5.png)
+![Displaying items to user](images/bamazon1.png)
+![User selects item](images/bamazon2.png)
+![User enters desired quantity](images/bamazon3.png)
+![Total price is displayed](images/bamazon4.png)
+![Insufficient quantity message is displayed. User gets to select a new quantity](images/bamazon5.png)
