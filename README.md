@@ -13,5 +13,8 @@ Bamazon posseses the following features:
 
 The features outlined above are captured in the following screenshots, displayed sequentially.
 
-Displaying all items to user:
 (images/bamazon1.png)
+(images/bamazon2.png)
+(images/bamazon3.png)
+(images/bamazon4.png)
+(images/bamazon5.png)
