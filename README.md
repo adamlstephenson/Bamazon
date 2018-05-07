@@ -18,3 +18,11 @@ The features outlined above are captured in the following screenshots, displayed
 ![User enters desired quantity](images/bamazon3.png)
 ![Total price is displayed](images/bamazon4.png)
 ![Insufficient quantity message is displayed. User gets to select a new quantity](images/bamazon5.png)
+
+# Development Setup
+
+```
+npm i inquirer
+npm i mysql
+
+```
